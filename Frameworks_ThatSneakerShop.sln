@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworks_ThatSneakerShop", "Frameworks_ThatSneakerShop\Frameworks_ThatSneakerShop.csproj", "{BF248357-4441-42A3-B958-BB412805DA10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF248357-4441-42A3-B958-BB412805DA10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF248357-4441-42A3-B958-BB412805DA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF248357-4441-42A3-B958-BB412805DA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF248357-4441-42A3-B958-BB412805DA10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {879CF627-982D-4DE6-95C7-70D81B34805E}
+	EndGlobalSection
+EndGlobal
