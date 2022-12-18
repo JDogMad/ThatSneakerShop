@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Frameworks_ThatSneakerShop.Models {
     public class Shoe {
@@ -20,5 +21,9 @@ namespace Frameworks_ThatSneakerShop.Models {
 
         [Required]
         public int Stock { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

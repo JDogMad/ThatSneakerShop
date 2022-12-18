@@ -6,6 +6,7 @@ using System.Configuration;
 
 namespace Frameworks_ThatSneakerShop {
     public class StartUp {
+        // Configuration that you normally would find in the Program.cs
         public StartUp(IConfiguration configuration) {
             Configuration = configuration;
         }
@@ -16,6 +17,7 @@ namespace Frameworks_ThatSneakerShop {
         public void ConfigureServices(IServiceCollection services) {
             //DbContext configuration
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //IdentityUser configuration
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
@@ -43,7 +45,7 @@ namespace Frameworks_ThatSneakerShop {
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //Seed database
+            //Here I seed the seeder into the database
             Seeder.Initialize(app);
         }
     }

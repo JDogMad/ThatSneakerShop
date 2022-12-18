@@ -24,17 +24,17 @@ namespace Frameworks_ThatSneakerShop.Data {
 
                 if (!context.Shoe.Any()) {
                     context.Shoe.AddRange(
-                        new Shoe { ShoeName = "Triple Pink Dunks", ShoeDescription = "The Nike Dunk Low Triple Pink has a full leather build, which makes use of three distinct shades of pink to complete the look. The base has a light shade of pink, with a slightly contrasting pink overlay.", ShoePrice = 221, Stock = 5 },
-                        new Shoe { ShoeName = "Nike SB Dunk Low Pro", ShoeDescription = "GREEN/METALLIC GOLD-WHITE-LIGHT GUM", ShoePrice = 147, Stock = 1 },
-                        new Shoe { ShoeName = "Nike Dunk Low\r\nHalloween (2022)", ShoeDescription = "PHANTOM/BLACK-SAFETY ORANGE", ShoePrice = 210, Stock = 5 });
+                        new Shoe { ShoeName = "Triple Pink Dunks", ShoeDescription = "The Nike Dunk Low Triple Pink has a full leather build, which makes use of three distinct shades of pink to complete the look. The base has a light shade of pink, with a slightly contrasting pink overlay.", ShoePrice = 221, Stock = 5, CategoryId = 1 },
+                        new Shoe { ShoeName = "Nike SB Dunk Low Pro", ShoeDescription = "GREEN/METALLIC GOLD-WHITE-LIGHT GUM", ShoePrice = 147, Stock = 1, CategoryId = 2},
+                        new Shoe { ShoeName = "Nike Dunk Low\r\nHalloween (2022)", ShoeDescription = "PHANTOM/BLACK-SAFETY ORANGE", ShoePrice = 210, Stock = 5, CategoryId = 3});
                     context.SaveChanges();
                 }
 
-                if (!context.Whislist.Any()) {
+                if (!context.Whislist.Any()){
                     context.Whislist.AddRange(
-                        new Whislist { ShoeId = 2}, 
-                        new Whislist { ShoeId = 3}, 
-                        new Whislist { ShoeId = 4});
+                        new Whislist { ShoeId = 1 },
+                        new Whislist { ShoeId = 2 },
+                        new Whislist { ShoeId = 3 });
                     context.SaveChanges();
                 }
             }

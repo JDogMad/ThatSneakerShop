@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Frameworks_ThatSneakerShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221217172516_UpdateTheCategory")]
-    partial class UpdateTheCategory
+    [Migration("20221218115835_TroubleShooting")]
+    partial class TroubleShooting
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,9 @@ namespace Frameworks_ThatSneakerShop.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoeId"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShoeDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -86,6 +89,8 @@ namespace Frameworks_ThatSneakerShop.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ShoeId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Shoe");
                 });
@@ -308,6 +313,17 @@ namespace Frameworks_ThatSneakerShop.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Frameworks_ThatSneakerShop.Models.Shoe", b =>
+                {
+                    b.HasOne("Frameworks_ThatSneakerShop.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Frameworks_ThatSneakerShop.Models.Whislist", b =>

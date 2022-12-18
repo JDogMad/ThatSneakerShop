@@ -22,7 +22,8 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // GET: Shoes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Shoe.ToListAsync());
+            var applicationDbContext = _context.Shoe.Include(w => w.Category);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Shoes/Details/5
@@ -44,8 +45,8 @@ namespace Frameworks_ThatSneakerShop.Controllers
         }
 
         // GET: Shoes/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -54,7 +55,7 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock")] Shoe shoe)
+        public async Task<IActionResult> Create([Bind("ShoeId,CategoryId")] Shoe shoe)
         {
             if (ModelState.IsValid)
             {
@@ -62,13 +63,14 @@ namespace Frameworks_ThatSneakerShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", shoe.CategoryId);
             return View(shoe);
         }
 
         // GET: Shoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Shoe == null)
+            if (id == null || _context.Whislist == null)
             {
                 return NotFound();
             }
@@ -78,6 +80,8 @@ namespace Frameworks_ThatSneakerShop.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", shoe.CategoryId);
+
             return View(shoe);
         }
 
@@ -86,7 +90,7 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShoeId,ShoeName,ShoeDescription,ShoePrice,Stock")] Shoe shoe)
+        public async Task<IActionResult> Edit(int id, [Bind("ShoeId, CategoryId")] Shoe shoe)
         {
             if (id != shoe.ShoeId)
             {
@@ -113,6 +117,7 @@ namespace Frameworks_ThatSneakerShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", shoe.CategoryId);
             return View(shoe);
         }
 
@@ -125,6 +130,7 @@ namespace Frameworks_ThatSneakerShop.Controllers
             }
 
             var shoe = await _context.Shoe
+                .Include(w => w.Category)
                 .FirstOrDefaultAsync(m => m.ShoeId == id);
             if (shoe == null)
             {
