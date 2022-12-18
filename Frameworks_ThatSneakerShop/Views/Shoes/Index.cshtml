@@ -4,11 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form method="get" asp-action="Index" asp-controller="Shoe">
+    <p>
+        <input type="text" name="search" value=@ViewData["searchField"] />
+        <input type="submit" value = "Search" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -53,7 +62,11 @@
                 <a asp-action="Details" asp-route-id="@item.ShoeId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ShoeId">Delete</a>
             </td>
+                    
         </tr>
 }
     </tbody>
 </table>
+
+
+

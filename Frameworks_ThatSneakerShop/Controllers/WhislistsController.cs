@@ -20,10 +20,15 @@ namespace Frameworks_ThatSneakerShop.Controllers
         }
 
         // GET: Whislists
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Whislist.Include(w => w.Shoe);
-            return View(await applicationDbContext.ToListAsync());
+        public async Task<IActionResult> Index(string searchField = "") {
+            List<Whislist> lists = await _context.Whislist.
+                                   Where(g => g.Shoe.ShoeName.Contains(searchField) || searchField != " ")
+                                   .Include(g => g.Shoe).ToListAsync();
+            ViewData["searchField"] = searchField;
+            return View(lists);
+
+            //var applicationDbContext = _context.Whislist.Include(w => w.Shoe);
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Whislists/Details/5

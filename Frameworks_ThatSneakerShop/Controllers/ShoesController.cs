@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Frameworks_ThatSneakerShop.Data;
 using Frameworks_ThatSneakerShop.Models;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Frameworks_ThatSneakerShop.Controllers
 {
@@ -20,15 +19,20 @@ namespace Frameworks_ThatSneakerShop.Controllers
         }
 
         // GET: Shoes
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Shoe.Include(w => w.Category);
-            return View(await applicationDbContext.ToListAsync());
+        public async Task<IActionResult> Index(string searchField = "") {
+
+
+            List<Shoe> shoes = await _context.Shoe.
+                                    Where(g => g.Category.CategoryName.Contains(searchField) || searchField != " ")
+                                    .Include(g => g.Category).ToListAsync();
+            ViewData["searchField"] = searchField;
+            return View(shoes);
+
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Shoes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
+        public async Task<IActionResult> Details(int? id) {
             if (id == null || _context.Shoe == null)
             {
                 return NotFound();
@@ -163,5 +167,6 @@ namespace Frameworks_ThatSneakerShop.Controllers
         {
           return _context.Shoe.Any(e => e.ShoeId == id);
         }
+
     }
 }

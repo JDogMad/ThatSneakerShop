@@ -22,7 +22,7 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Category.ToListAsync());
+            return View(await _context.Category.ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -117,7 +117,8 @@ namespace Frameworks_ThatSneakerShop.Controllers
         }
 
         // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id) {
+        public async Task<IActionResult> Delete(int? id)
+        {
             //if (id == null || _context.Category == null) {
             //    return NotFound();
             //}
@@ -133,7 +134,8 @@ namespace Frameworks_ThatSneakerShop.Controllers
 
 
             var category = _context.Category.Find(id);
-            if (category == null) {
+            if (category == null)
+            {
                 // Category not found
                 return NotFound();
             }
@@ -150,10 +152,12 @@ namespace Frameworks_ThatSneakerShop.Controllers
 
         [HttpPost, ActionName("UpdateData")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>  UpdateData(bool hidden) {
+        public async Task<IActionResult> UpdateData(bool hidden)
+        {
             var categories = _context.Category.Where(p => p.Hidden == true);
 
-            foreach (var category in categories) {
+            foreach (var category in categories)
+            {
                 category.Hidden = false;
             }
             _context.SaveChanges();
@@ -165,21 +169,25 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id) {
-            if (_context.Category == null) {
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Category == null)
+            {
                 return Problem("Entity set 'ApplicationDbContext.Category'  is null.");
             }
             var category = await _context.Category.FindAsync(id);
-            if (category != null) {
+            if (category != null)
+            {
                 _context.Category.Remove(category);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id) {
-          return _context.Category.Any(e => e.CategoryId == id);
+        private bool CategoryExists(int id)
+        {
+            return _context.Category.Any(e => e.CategoryId == id);
         }
     }
 }

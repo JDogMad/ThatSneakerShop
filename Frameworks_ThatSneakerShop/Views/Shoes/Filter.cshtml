@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Frameworks_ThatSneakerShop.Models.Shoe>
+
+@{
+    ViewData["Title"] = "Filter";
+}
+
+
+<h1>Filterd view</h1>
+
+@foreach (var item in Model) {
+    <div>@item.ShoeName</div>
+    <div>@item.ShoeDescription</div>
+    <div>@item.ShoePrice</div>
+    <div>@item.Stock</div>
+}
