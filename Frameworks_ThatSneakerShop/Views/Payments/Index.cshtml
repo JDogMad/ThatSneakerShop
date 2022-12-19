@@ -18,6 +18,8 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                @if (item.Hidden == false) {
+                }
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PaymentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.PaymentId">Details</a> |
@@ -25,5 +27,10 @@
             </td>
         </tr>
 }
+
+        @using (Html.BeginForm("UpdateData", "Payments", FormMethod.Post))
+        {
+            <button type="submit">Show All Data</button>
+        }
     </tbody>
 </table>

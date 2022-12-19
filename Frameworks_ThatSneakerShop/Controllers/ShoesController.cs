@@ -128,21 +128,53 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // GET: Shoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Shoe == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.Shoe == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var shoe = await _context.Shoe
-                .Include(w => w.Category)
-                .FirstOrDefaultAsync(m => m.ShoeId == id);
+            //var shoe = await _context.Shoe
+            //    .Include(w => w.Category)
+            //    .FirstOrDefaultAsync(m => m.ShoeId == id);
+            //if (shoe == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(shoe);
+
+            var shoe = _context.Shoe.Find(id);
             if (shoe == null)
             {
+                // Category not found
                 return NotFound();
             }
 
-            return View(shoe);
+            // Ik gebruik gewoon mijn property bool Hidden om deze te verstoppen 
+            // In de cshtml doe ik een if else structuur om deze te verstoppen of te tonen 
+            shoe.Hidden = true;
+            _context.SaveChanges();
+
+            // Redirect the user back to the view
+            return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost, ActionName("UpdateData")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateData(bool hidden)
+        {
+            var shoes = _context.Shoe.Where(p => p.Hidden == true);
+
+            foreach (var shoe in shoes)
+            {
+                shoe.Hidden = false;
+            }
+            _context.SaveChanges();
+
+            // Redirect the user back to the view 
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // POST: Shoes/Delete/5
         [HttpPost, ActionName("Delete")]

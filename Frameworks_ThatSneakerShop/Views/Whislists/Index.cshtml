@@ -28,22 +28,32 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Shoe.ShoeName)
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shoe.ShoeDescription)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Shoe.ShoePrice)
-                </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.WhislistId">Edit</a> |
+            <tr>
+                @if (item.Hidden == false)
+                {
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shoe.ShoeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shoe.ShoeDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shoe.ShoePrice)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.WhislistId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.WhislistId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.WhislistId">Delete</a>
             </td>
+
+            }
         </tr>
 }
+
+        @using (Html.BeginForm("UpdateData", "Whislists", FormMethod.Post))
+        {
+                <button type="submit">Show All Data</button>
+        }
     </tbody>
 </table>

@@ -130,21 +130,54 @@ namespace Frameworks_ThatSneakerShop.Controllers
         // GET: Whislists/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Whislist == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.Whislist == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var whislist = await _context.Whislist
-                .Include(w => w.Shoe)
-                .FirstOrDefaultAsync(m => m.WhislistId == id);
+            //var whislist = await _context.Whislist
+            //    .Include(w => w.Shoe)
+            //    .FirstOrDefaultAsync(m => m.WhislistId == id);
+            //if (whislist == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(whislist);
+
+            var whislist = _context.Whislist.Find(id);
             if (whislist == null)
             {
+                // Category not found
                 return NotFound();
             }
 
-            return View(whislist);
+            // Ik gebruik gewoon mijn property bool Hidden om deze te verstoppen 
+            // In de cshtml doe ik een if else structuur om deze te verstoppen of te tonen 
+            whislist.Hidden = true;
+            _context.SaveChanges();
+
+            // Redirect the user back to the view
+            return RedirectToAction(nameof(Index));
         }
+
+
+        [HttpPost, ActionName("UpdateData")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateData(bool hidden)
+        {
+            var whislists = _context.Whislist.Where(p => p.Hidden == true);
+
+            foreach (var wishlist in whislists)
+            {
+                wishlist.Hidden = false;
+            }
+            _context.SaveChanges();
+
+            // Redirect the user back to the view 
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // POST: Whislists/Delete/5
         [HttpPost, ActionName("Delete")]

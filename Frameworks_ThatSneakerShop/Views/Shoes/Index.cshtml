@@ -41,30 +41,40 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShoeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShoeDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShoePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ShoeId">Edit</a> |
+            <tr>
+                @if (item.Hidden == false)
+                {
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShoeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShoeDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShoePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ShoeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ShoeId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ShoeId">Delete</a>
             </td>
+            }
                     
         </tr>
 }
+
+
+        @using (Html.BeginForm("UpdateData", "Shoes", FormMethod.Post))
+        {
+            <button type="submit">Show All Data</button>
+        }
     </tbody>
 </table>
 

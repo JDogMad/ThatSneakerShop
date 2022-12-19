@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Frameworks_ThatSneakerShop.Models {
@@ -9,5 +10,9 @@ namespace Frameworks_ThatSneakerShop.Models {
         [ForeignKey ("ShoeId")]
         public Shoe Shoe { get; set; }
         public int ShoeId { get; set; }
+
+        [DefaultValue(false)]
+        [Display(Name = "Available")]
+        public bool Hidden { get; set; }
     }
 }

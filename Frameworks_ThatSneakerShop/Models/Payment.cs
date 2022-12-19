@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Frameworks_ThatSneakerShop.Models {
@@ -16,5 +17,9 @@ namespace Frameworks_ThatSneakerShop.Models {
         [DataType(DataType.DateTime)]
         [Display(Name = "Time of payment")]
         public DateTime TimeOfPayment { get; set; }
+
+        [DefaultValue(false)]
+        [Display(Name = "Available")]
+        public bool Hidden { get; set; }
     }
 }

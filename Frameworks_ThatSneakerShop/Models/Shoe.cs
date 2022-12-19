@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
@@ -26,5 +27,9 @@ namespace Frameworks_ThatSneakerShop.Models {
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+
+        [DefaultValue(false)]
+        [Display(Name = "Available")]
+        public bool Hidden { get; set; }
     }
 }
